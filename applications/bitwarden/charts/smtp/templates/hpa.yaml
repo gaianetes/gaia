@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "simplesmtp.fullname" . }}
+  name: {{ include "smtp.fullname" . }}
   labels:
-    {{- include "simplesmtp.labels" . | nindent 4 }}
+    {{- include "smtp.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "simplesmtp.fullname" . }}
+    name: {{ include "smtp.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:

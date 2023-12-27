@@ -21,6 +21,10 @@ global:
       username: "bitwarden"
       password: "BitwardenP@55"
       database: "bitwarden"
+      secretKeys:
+        adminPasswordKey: "admin-password"
+        userPasswordKey: "user"
+        replicationPasswordKey: "replication-password"
   smtp:
     enabled: false
     env:

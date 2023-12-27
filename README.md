@@ -1,6 +1,6 @@
 # Gaia: Advanced Cloud Native Toolkit
 
-![Gaia Logo](media/logo.png)
+![Gaia Logo](media/gaianetes.png)
 
 ## What is Gaia?
 

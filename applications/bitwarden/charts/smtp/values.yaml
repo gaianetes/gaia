@@ -1,4 +1,4 @@
-# Default values for simplesmtp.
+# Default values for smtp.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -13,6 +13,8 @@ image:
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+
+# env: {}
 
 serviceAccount:
   # Specifies whether a service account should be created

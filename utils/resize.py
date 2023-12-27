@@ -3,8 +3,8 @@
 from PIL import Image
 
 # read image
-image = Image.open("../media/gaia_kubula.png")
+image = Image.open("../media/flux.png")
 # resize
-new_image = image.resize((200, 200))
+new_image = image.resize((800, 435))
 # save image
-new_image.save("../media/gaianetes.png")
+new_image.save("../media/flux-scaled.png")
