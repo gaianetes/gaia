@@ -1,0 +1,31 @@
+{{ if .Values.global.jackett.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jackett
+  labels:
+    {{- include "mediaserver.labels" . | nindent 4 }}
+  {{- with .Values.global.jackett.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+{{ if .Values.global.jackett.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        - {{ .Values.global.general.ingress_host | quote }}
+      secretName: {{ .Values.global.jackett.ingress.tls.secretName }}
+{{ end }}
+  ingressClassName: {{ .Values.global.general.ingress.ingressClassName }}
+  rules:
+    - host: {{ .Values.global.general.ingress_host | quote }}
+      http:
+        paths:
+          - path: {{ .Values.global.jackett.ingress.path }}
+            pathType: Prefix
+            backend:
+              service:
+                name: jackett
+                port:
+                  number: {{ .Values.global.jackett.service.port }}
+{{ end }}

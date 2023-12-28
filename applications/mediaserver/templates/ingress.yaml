@@ -1,0 +1,31 @@
+{{ if .Values.global.plex.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: plex
+  labels:
+    {{- include "mediaserver.labels" . | nindent 4 }}
+  {{- with .Values.global.plex.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+{{- if .Values.global.plex.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        - {{ .Values.global.general.plex_ingress_host | quote }}
+      secretName: {{ .Values.global.plex.ingress.tls.secretName }}
+{{ end }}
+  ingressClassName: {{ .Values.global.general.ingress.ingressClassName }}
+  rules:
+    - host: {{ .Values.global.general.plex_ingress_host | quote }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: plex
+                port:
+                  number: {{ .Values.global.plex.service.port }}
+{{ end }}

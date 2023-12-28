@@ -1,0 +1,31 @@
+{{ if .Values.global.radarr.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: radarr
+  labels:
+    {{- include "mediaserver.labels" . | nindent 4 }}
+  {{- with .Values.global.radarr.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+{{- if .Values.global.radarr.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        - {{ .Values.global.general.ingress_host | quote }}
+      secretName: {{ .Values.global.radarr.ingress.tls.secretName }}
+{{ end }}
+  ingressClassName: {{ .Values.global.general.ingress.ingressClassName }}
+  rules:
+    - host: {{ .Values.global.general.ingress_host | quote }}
+      http:
+        paths:
+          - path: {{ .Values.global.radarr.ingress.path }}
+            pathType: Prefix
+            backend:
+              service:
+                name: radarr
+                port:
+                  number: {{ .Values.global.radarr.service.port }}
+{{ end }}

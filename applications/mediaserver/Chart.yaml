@@ -1,0 +1,19 @@
+apiVersion: v2
+appVersion: 0.9.1
+description: A Helm chart for a Kubernetes mediaserver stack
+name: mediaserver
+type: application
+version: 0.9.1
+dependencies:
+  - name: jackett
+    condition: global.jackett.enabled
+  - name: radarr
+    condition: global.radarr.enabled
+  - name: transmission
+    condition: global.transmission.enabled
+  - name: sonarr
+    condition: global.sonarr.enabled
+  - name: prowlarr
+    condition: global.prowlarr.enabled
+  - name: sabnzbd
+    condition: global.sabnzbd.enabled
