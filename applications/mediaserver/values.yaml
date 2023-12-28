@@ -14,10 +14,10 @@ global:
     pgid: 1000
     #Persistent storage selections and pathing
     storage:
-      customVolume: false #set to true if not using a PVC (must provide volume below)
+      customVolume: true #set to true if not using a PVC (must provide volume below)
       pvcName: mediaserver-pvc
       accessMode: ""
-      size: 100Gi
+      size: 10Gi
       pvcStorageClass: ""
       # the path starting from the top level of the pv you're passing. If your share is server.local/share/, then tv is server.local/share/media/tv
       subPaths:
@@ -27,9 +27,9 @@ global:
         transmission: transmission
         sabnzbd: sabnzbd
         config: config
-      volumes: {}
-      #  hostPath:
-      #    path: /mnt/share
+      volumes:
+        hostPath:
+          path: /mnt/storage
     ingress:
       ingressClassName: ""
     nodeSelector: {}
