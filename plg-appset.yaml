@@ -2,6 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: plg
+  namespace: argocd
 spec:
   generators:
   - list:
@@ -18,9 +19,9 @@ spec:
       annotations:
         argocd.argoproj.io/manifest-generate-paths: ".;.."
     spec:
-      project: monitoring
+      project: default
       source:
-        repoURL: git@github.com:gaianetes/gaia.git
+        repoURL: https://github.com/gaianetes/gaia.git
         targetRevision: HEAD
         path: "charts/{{appName}}"
         helm:
