@@ -28,6 +28,36 @@ _todo_
 
 _todo_
 
+## ArgoCD
+
+ArgoCD is a widely used declarative, GitOps continuous delivery tool for Kubernetes. It is used to deploy and manage the state of applications running in Kubernetes clusters. It is a declarative tool, meaning that it uses a Git repository as the source of truth for the desired state of the cluster. It then compares the desired state with the actual state of the cluster and makes any necessary changes to the cluster to make the actual state match the desired state.
+
+### ArgoCD Installation
+
+ArgoCD can be installed via multiple methods. The most common method is to install it as a Kubernetes application using the ArgoCD Helm chart. This method is the most flexible and allows for the most customization. It is also the most complex method. The other method is to install ArgoCD as a standalone application. This method is the simplest and quickest method, but it is also the least flexible and customizable. `gaianetes` is a full, self-service platform that bootstraps a Kubernetes cluster and installs ArgoCD on `n` number of Kubernetes clusters using `flux-cd`. Please see the [Gaia](https://github.com/gaianetes/kubula/tree/main/clusters/mgmt/03-argo-cd) module for more information.
+
+### ArgoCD Configuration
+
+While you can configure ArgoCD solely using the UI, we will be using the CLI to configure ArgoCD so it will be easily reproducible. The ArgoCD CLI is called `argocd`. It is a powerful tool that allows you to configure ArgoCD in a declarative manner. This means that you can configure ArgoCD using a Git repository as the source of truth for the desired state of ArgoCD. This is the same way that ArgoCD manages the state of applications running in Kubernetes clusters. This is a powerful feature because it allows you to manage the state of ArgoCD in the same way that you manage the state of applications running in Kubernetes clusters. This means that you can use the same tools and processes to manage the state of ArgoCD that you use to manage the state of applications running in Kubernetes clusters. See the [ArgoCD CLI](https://argo-cd.readthedocs.io/en/stable/cli_installation/) documentation for more information.
+
+#### ArgoCD Project
+
+Projects in ArgoCD are used to group applications together. The first project that we will configure will be for `monitoring` applications. We will use the `argocd` CLI to create the `monitoring` project.
+
+```bash
+# first port forward to the ArgoCD server
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+# login
+argocd login localhost:8080 --username admin --password $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+# now create a project
+ADDFLAGS="--upsert"
+argocd proj create monitoring \
+  --allow-namespaced-resource '*' \
+  --allow-cluster-resource '*' \
+  $ADDFLAGS \
+  --dest https://kubernetes.default.svc,monitoring
+```
+
 ## References
 
 - https://fluxcd.io/docs/get-started/
