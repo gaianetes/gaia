@@ -57,9 +57,11 @@ export ARGOCD_PASSWORD=<your-new-password> >> ~/.zshrc
 argocd login localhost:8080 --username admin --password $ARGOCD_PASSWORD
 # now configure the private repository
 argocd repo add https://github.com/gaianetes/gaia.git \
+  --project monitoring \
   --username git \
   --password $GAIANETES_PAT \
-  --insecure-skip-server-verification
+  --insecure-skip-server-verification \
+  --upsert
 ```
 
 #### ArgoCD Project
