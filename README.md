@@ -28,8 +28,6 @@ _todo_
 
 _todo_
 
-<<<<<<< Updated upstream
-=======
 ## ArgoCD
 
 ArgoCD is a widely used declarative, GitOps continuous delivery tool for Kubernetes. It is used to deploy and manage the state of applications running in Kubernetes clusters. It is a declarative tool, meaning that it uses a Git repository as the source of truth for the desired state of the cluster. It then compares the desired state with the actual state of the cluster and makes any necessary changes to the cluster to make the actual state match the desired state.
@@ -84,7 +82,6 @@ argocd proj create monitoring \
   --dest https://kubernetes.default.svc,monitoring
 ```
 
->>>>>>> Stashed changes
 ## References
 
 - https://fluxcd.io/docs/get-started/
