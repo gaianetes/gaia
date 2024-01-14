@@ -28,7 +28,7 @@ spec:
           releaseName: "{{appName}}"
           valueFiles:
           - "values.yaml"
-          - "../../values/{{name}}/{{appName}}/values.yaml"
+          # - "../../values/{{name}}/{{appName}}/values.yaml"
       destination:
         # Default base cluster
         name: in-cluster
