@@ -9,6 +9,9 @@ spec:
       generators:
       # use all clusters, should use labels
       - clusters: {}
+          # selector:
+          #   matchLabels:
+          #     smigula.io/plg: enabled
       - list:
           elements:
             - appName: loki-distributed
