@@ -5,14 +5,18 @@ metadata:
   namespace: argocd
 spec:
   generators:
-  - list:
-      elements:
-        - appName: loki-distributed
-          namespace: monitoring
-        - appName: promtail
-          namespace: monitoring
-        - appName: tracee
-          namespace: monitoring
+  - matrix:
+      generators:
+      # use all clusters, should use labels
+      - clusters: {}
+      - list:
+          elements:
+            - appName: loki-distributed
+              namespace: monitoring
+            - appName: promtail
+              namespace: monitoring
+            - appName: tracee
+              namespace: monitoring
   template:
     metadata:
       name: "{{appName}}"
@@ -32,7 +36,7 @@ spec:
           # - "../../values/{{name}}/{{appName}}/values.yaml"
       destination:
         # Default base cluster
-        name: in-cluster
+        name: "{{server}}"
         namespace: "{{namespace}}"
       syncPolicy:
         automated:

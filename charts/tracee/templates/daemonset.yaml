@@ -43,8 +43,8 @@ spec:
           env:
             - name: LIBBPFGO_OSRELEASE_FILE
               value: /etc/os-release-host
-            - name: LIBBPFGO_BOOTCONFIG_FILE
-              value: /boot/config-6.6.7-1.el8.elrepo.x86_64
+            # - name: LIBBPFGO_BOOTCONFIG_FILE
+            #   value: /boot/config-6.6.7-1.el8.elrepo.x86_64
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           {{- if .Values.config.healthz }}
